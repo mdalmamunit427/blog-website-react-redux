@@ -6,12 +6,17 @@ import Card from './Card';
 const PostCards = () => {
   const dispatch = useDispatch();
   const { blogs, isLoading, isError, error } = useSelector((state) => state.blogs);
+
+  const { tags, search } = useSelector((state) => state.filter);
+
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 5;
 
   useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+    dispatch(fetchBlogs({ tags, search }));
+  }, [dispatch,tags, search]);
+
+
 
   const paginatedBlogs = blogs.slice((currentPage - 1) * blogsPerPage, currentPage * blogsPerPage);
 
