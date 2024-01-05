@@ -1,12 +1,35 @@
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import { useEffect, useState } from "react";
+import { FaBars } from "react-icons/fa6";
 
 const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 30) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="flex items-center justify-between py-4 border-b">
-      <Link to="/" className="px-2 lg:px-0 uppercase font-bold text-purple-800">
+    <header className={`flex items-center justify-between py-4 border-b z-[10001] transition-all duration-300 ease-in ${
+      isScrolled ? "fixed bg-white shadow-md md:px-32 top-0 left-0 right-0" : ""
+    }`}>
+      <a href="/" className="px-2 lg:px-0 uppercase font-bold text-purple-800">
         XBlog
-      </Link>
+      </a>
       
       <div className="sm:block hidden">
       <Search />
@@ -54,19 +77,11 @@ const Navbar = () => {
             href="#"
             className="text-gray-500 font-semibold hover:text-purple-500"
           >
-            {" "}
-            Login{" "}
+           
+            Login
           </a>
         </li>
-        <li className="px-2 md:px-4 hidden md:block">
-          <a
-            href="#"
-            className="text-gray-500 font-semibold hover:text-purple-500"
-          >
-            {" "}
-            Register{" "}
-          </a>
-        </li>
+       
       </ul>
 
       <ul className="sm:hidden">
@@ -75,8 +90,7 @@ const Navbar = () => {
             to="/"
             className="text-purple-600 font-semibold hover:text-purple-500"
           >
-            {" "}
-            Home{" "}
+            <FaBars />
           </Link>
         </li>
       </ul>
