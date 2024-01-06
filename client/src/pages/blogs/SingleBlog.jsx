@@ -126,7 +126,7 @@ const {title,image, content, author, authorPic, category } = blog || {};
         </div>
       </div>
 
-      <PopularBlog />
+      <PopularBlog currentVideoId={id} tags={category} />
     </article>
   );
 };

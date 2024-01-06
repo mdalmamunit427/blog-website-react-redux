@@ -1,6 +1,8 @@
 import React from 'react'
 import Subscribe from './Subscribe'
 import CategoryList from './CategoryList'
+import { useDispatch, useSelector } from 'react-redux';
+import { tagSelected } from '../../redux/features/filter/filterSlice';
 
 const Category = () => {
   return (
